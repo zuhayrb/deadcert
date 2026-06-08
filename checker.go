@@ -36,7 +36,6 @@ func CheckDomain(domain string, port int, timeout time.Duration, warnDays int) R
 		// name rather than the IP address that the dialer resolved to.
 		ServerName: domain,
 	})
-
 	if err != nil {
 		return Result{
 			Domain:  domain,
@@ -46,4 +45,42 @@ func CheckDomain(domain string, port int, timeout time.Duration, warnDays int) R
 		}
 	}
 	defer conn.Close()
+
+	// PeerCertificates[0] is always the leaf cert (section 2.5 of the LDD).
+	// The slice is guaranteed non-empty after a successful DialWithDialer
+	// because the TLS handshake verifies the server presented at least one cert.
+	leaf := conn.ConnectionState().PeerCertificates[0]
+
+	now := time.Now()
+	daysLeft := int(leaf.NotAfter.Sub(now).Hours() / 24)
+
+	switch {
+	case now.After(leaf.NotAfter):
+		return Result{
+			Domain:    domain,
+			Port:      port,
+			Status:    StatusExpired,
+			ExpiresAt: leaf.NotAfter,
+			DaysLeft:  daysLeft, // negative
+			Message:   fmt.Sprintf("certificate expired %s", leaf.NotAfter.Format("2006-01-02")),
+		}
+	case daysLeft <= warnDays:
+		return Result{
+			Domain:    domain,
+			Port:      port,
+			Status:    StatusWarning,
+			ExpiresAt: leaf.NotAfter,
+			DaysLeft:  daysLeft,
+			Message:   fmt.Sprintf("certificate expires in %d days (%s)", daysLeft, leaf.NotAfter.Format("2006-01-02")),
+		}
+	default:
+		return Result{
+			Domain:    domain,
+			Port:      port,
+			Status:    StatusOK,
+			ExpiresAt: leaf.NotAfter,
+			DaysLeft:  daysLeft,
+			Message:   fmt.Sprintf("certificate valid for %d days (%s)", daysLeft, leaf.NotAfter.Format("2006-01-02")),
+		}
+	}
 }
