@@ -18,7 +18,7 @@ func main() {
 	case "check":
 		domains := os.Args[2:]
 		for _, domain := range domains {
-			checkDomain(domain)
+			CheckDomain(domain)
 		}
 	default:
 		println("Unknown command:", command)
