@@ -24,7 +24,7 @@ func run(args []string) int {
 	fs.SetOutput(os.Stderr)
 	fs.Usage = usage(fs)
 
-	// ---- Flags (stdlib flag is enough for one command) -----------------
+	// ---- Flags (P5: stdlib flag is enough for one command) -----------------
 	warnDays := fs.Int("warn-days", 30,
 		"warn when a cert expires within this many days (0 = expired certs only)")
 	port := fs.Int("port", 443,
@@ -52,7 +52,7 @@ func run(args []string) int {
 		return 0
 	}
 
-	// ---- Validate --warn-days ----------------------------------------------
+	// ---- Validate --warn-days (OQ-1 / DR-008) ------------------------------
 	// 0 is explicitly valid: "alert on already-expired certs only".
 	// Negative values are a usage error.
 	if *warnDays < 0 {
@@ -60,7 +60,7 @@ func run(args []string) int {
 		return 2
 	}
 
-	// ---- Parse --timeout ---------------------------------------------------
+	// ---- Parse --timeout (DR-015) ------------------------------------------
 	timeout, err := time.ParseDuration(*timeoutStr)
 	if err != nil || timeout <= 0 {
 		fmt.Fprintf(os.Stderr, "error: invalid --timeout %q (use a Go duration: 5s, 1m)\n", *timeoutStr)
@@ -86,11 +86,11 @@ func run(args []string) int {
 		return 2
 	}
 
-	// ---- Color setup -------------------------------------------------------
+	// ---- Color setup (DR-006) ----------------------------------------------
 	// --no-color always wins. Otherwise enable color only when stdout is a TTY.
 	colorEnabled = !*noColor && isTerminal(os.Stdout.Fd())
 
-	// ---- Concurrent checking -----------------------------------------------
+	// ---- Concurrent checking (DR-004) --------------------------------------
 	results := make([]Result, 0, len(domains))
 	var mu sync.Mutex
 	var wg sync.WaitGroup
@@ -109,10 +109,10 @@ func run(args []string) int {
 
 	wg.Wait()
 
-	// ---- Sort before print -------------------------------------------------
+	// ---- Sort before print (DR-007) ----------------------------------------
 	SortResults(results)
 
-	// ---- Render ------------------------------------------------------------
+	// ---- Render (P3) -------------------------------------------------------
 	if *jsonOut {
 		if err := PrintJSON(results); err != nil {
 			fmt.Fprintf(os.Stderr, "error writing JSON: %s\n", err)
@@ -127,7 +127,7 @@ func run(args []string) int {
 		}
 	}
 
-	// ---- Exit code ---------------------------------------------------------
+	// ---- Exit code (DR-005) ------------------------------------------------
 	return ExitCode(results)
 }
 
