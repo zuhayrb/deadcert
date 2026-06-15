@@ -21,6 +21,11 @@ checksum:
 release:
   extra_files:
     - glob: install.sh
+  github:
+    owner: Zuhayr-Barhoumi
+    name: deadcert
+  draft: false
+  prerelease: auto
 snapshot:
   version_template: "{{.Tag}}-next"
 changelog:
@@ -34,9 +39,3 @@ changelog:
       - "^refactor:"
       - Merge pull request
       - Merge branch
-release:
-  github:
-    owner: Zuhayr-Barhoumi
-    name: deadcert
-  draft: false
-  prerelease: auto
