@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 # deadcert installer
-# Usage: curl -fsSL https://github.com/Zuhayr-Barhoumi/deadcert/releases/latest/download/install.sh | sh
+# Usage: curl -fsSL https://raw.githubusercontent.com/Zuhayr-Barhoumi/deadcert/main/install.sh | sh
 
 set -eu
 

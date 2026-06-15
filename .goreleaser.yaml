@@ -18,6 +18,9 @@ archives:
         formats: [zip]
 checksum:
   name_template: checksums.txt
+release:
+  extra_files:
+    - glob: install.sh
 snapshot:
   version_template: "{{.Tag}}-next"
 changelog:
