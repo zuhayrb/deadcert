@@ -1,5 +1,10 @@
 # deadcert
 
+![Go Version](https://img.shields.io/badge/go-1.26%2B-blue)
+![Release](https://img.shields.io/github/v/release/Zuhayr-Barhoumi/deadcert)
+![Build](https://github.com/Zuhayr-Barhoumi/deadcert/actions/workflows/release.yaml/badge.svg)
+![License](https://img.shields.io/github/license/Zuhayr-Barhoumi/deadcert)
+
 `deadcert` is a small Go CLI for checking when TLS certificates expire.
 
 It accepts one or more domains, checks them concurrently, and reports whether
@@ -17,19 +22,30 @@ each certificate is healthy, expiring soon, already expired, or unreachable.
 
 ## Install
 
-Build from the repository root:
+### Pre-built binaries (recommended)
+
+**Linux / macOS / Windows:**
+
+```sh
+curl -fsSL https://github.com/Zuhayr-Barhoumi/deadcert/releases/latest/download/install.sh | sh
+```
+
+This downloads the latest release for your platform, verifies the checksum, and installs to `~/.local/bin`.
+
+### Go install
+
+```sh
+go install github.com/Zuhayr-Barhoumi/deadcert@latest
+```
+
+### From source
 
 ```sh
 go build -o deadcert .
-```
-
-Then run:
-
-```sh
 ./deadcert example.com
 ```
 
-You can also run it directly during development:
+Or run directly during development:
 
 ```sh
 go run . example.com
@@ -146,3 +162,7 @@ go test ./...
 
 The tests use local TLS servers with generated certificates, so they do not
 depend on external network access.
+
+## License
+
+MIT License - see [LICENSE](LICENSE) for details.
