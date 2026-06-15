@@ -1,5 +1,4 @@
 project_name: deadcert
-version: "{{.Version}}"
 before:
   hooks:
     - go mod tidy
