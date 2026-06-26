@@ -12,17 +12,17 @@ builds:
       - -s -w
       - -X main.version={{.Version}}
 archives:
-  - formats: [tar.gz]
+  - format: tar.gz
     format_overrides:
       - goos: windows
-        formats: [zip]
+        format: zip
 checksum:
   name_template: checksums.txt
 release:
   extra_files:
     - glob: install.sh
   github:
-    owner: Zuhayr-Barhoumi
+    owner: zuhayrb
     name: deadcert
   draft: false
   prerelease: auto
