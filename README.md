@@ -1,9 +1,9 @@
 # deadcert
 
 ![Go Version](https://img.shields.io/badge/go-1.26%2B-blue)
-![Release](https://img.shields.io/github/v/release/Zuhayr-Barhoumi/deadcert)
-![Build](https://github.com/Zuhayr-Barhoumi/deadcert/actions/workflows/release.yaml/badge.svg)
-![License](https://img.shields.io/github/license/Zuhayr-Barhoumi/deadcert)
+![Release](https://img.shields.io/github/v/release/zuhayrb/deadcert)
+![Build](https://github.com/zuhayrb/deadcert/actions/workflows/release.yaml/badge.svg)
+![License](https://img.shields.io/github/license/zuhayrb/deadcert)
 
 `deadcert` is a small Go CLI for checking when TLS certificates expire.
 
@@ -27,7 +27,7 @@ each certificate is healthy, expiring soon, already expired, or unreachable.
 **Linux / macOS / Windows:**
 
 ```sh
-curl -fsSL https://github.com/Zuhayr-Barhoumi/deadcert/releases/latest/download/install.sh | sh
+curl -fsSL https://github.com/zuhayrb/deadcert/releases/latest/download/install.sh | sh
 ```
 
 This downloads the latest release for your platform, verifies the checksum, and installs to `~/.local/bin`.
@@ -35,7 +35,7 @@ This downloads the latest release for your platform, verifies the checksum, and 
 ### Go install
 
 ```sh
-go install github.com/Zuhayr-Barhoumi/deadcert@latest
+go install github.com/zuhayrb/deadcert@latest
 ```
 
 ### From source

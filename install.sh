@@ -1,10 +1,10 @@
 #!/usr/bin/env sh
 # deadcert installer
-# Usage: curl -fsSL https://raw.githubusercontent.com/Zuhayr-Barhoumi/deadcert/main/install.sh | sh
+# Usage: curl -fsSL https://raw.githubusercontent.com/zuhayrb/deadcert/main/install.sh | sh
 
 set -eu
 
-REPO="Zuhayr-Barhoumi/deadcert"
+REPO="zuhayrb/deadcert"
 BINARY="deadcert"
 
 OS=$(uname -s | tr '[:upper:]' '[:lower:]')
@@ -61,7 +61,16 @@ curl -fsSL "$DOWNLOAD_URL" -o "$TMP_DIR/$FILE"
 
 echo "Verifying checksum..."
 curl -fsSL "$CHECKSUM_URL" -o "$TMP_DIR/checksums.txt"
-(cd "$TMP_DIR" && grep " $FILE$" checksums.txt | sha256sum -c -)
+SHA_CMD=""
+if command -v sha256sum >/dev/null 2>&1; then
+  SHA_CMD="sha256sum"
+elif command -v shasum >/dev/null 2>&1; then
+  SHA_CMD="shasum -a 256"
+else
+  echo "Error: no SHA-256 checksum tool found"
+  exit 1
+fi
+(cd "$TMP_DIR" && grep " $FILE$" checksums.txt | $SHA_CMD -c -)
 
 echo "Extracting..."
 case "$OS" in

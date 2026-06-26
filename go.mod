@@ -1,3 +1,3 @@
-module github.com/Zuhayr-Barhoumi/deadcert
+module github.com/zuhayrb/deadcert
 
 go 1.26.4
