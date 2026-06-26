@@ -27,7 +27,7 @@ release:
   draft: false
   prerelease: auto
 snapshot:
-  version_template: "{{.Tag}}-next"
+  name_template: "{{.Tag}}-next"
 changelog:
   sort: asc
   filters:
