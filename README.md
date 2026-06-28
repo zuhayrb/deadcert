@@ -30,7 +30,7 @@ each certificate is healthy, expiring soon, already expired, or unreachable.
 curl -fsSL https://github.com/zuhayrb/deadcert/releases/latest/download/install.sh | sh
 ```
 
-This downloads the latest release for your platform, verifies the checksum, and installs to `~/.local/bin`.
+This downloads the latest release for your platform, verifies the checksum, and installs to `~/.local/bin`. Make sure `~/.local/bin` is on your `PATH`.
 
 ### Go install
 
@@ -166,3 +166,11 @@ depend on external network access.
 ## License
 
 MIT License - see [LICENSE](LICENSE) for details.
+
+## Support ☕
+
+If you find deadcert useful, consider supporting development:
+
+- **BTC**: `bc1qarlskqtdq4wsdudecktv6g7zqv5jv52at9k5uk`
+- **ETH/ERC-20**: `0x03d42691a1f0d9af62899813e1f3937da0f6039b`
+- **SOL/SLP**: `J9jneBCAW8NaoSj5KekxLyxBcYbzNq3F2Wshdar7FHdf`
